@@ -1,0 +1,4 @@
+pip-tools==6.4.0
+black
+pre-commit
+Django>=2.0,<3.0

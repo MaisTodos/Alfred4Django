@@ -1,0 +1,14 @@
+stages:
+  - test
+tests:
+  image: python:3.7.3
+  stage: test
+  script:
+  - pip install -r requirements/test.txt
+  - pip install -r requirements/base.txt
+  - safety check
+  - py.test -s --cov-report term --cov-fail-under 100
+  environment:
+    name: merge_request
+  only:
+  - merge_requests
