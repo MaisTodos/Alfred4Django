@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    volumes:
+      - ./:/var/task
+    environment: &environment
+      - AWS_ACCESS_KEY_ID=aws_access_key
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_SECRET_ACCESS_KEY=aws_access_secret
+      - ALFRED_REDIS_HOST=redis
+      - ALFRED_PASSWORD_SALT=esquilo
+      - PYNAMODB_CONFIG=/var/task/alfred/pynamodb_settings.py
+      - JWT_ALGORITHM=HS256
+      - JWT_EXP_DELTA_SECONDS=604800
+      - JWT_SECRET=fake_secret
+      - FERNET_CRYPT_KEY=ank2C0xNzXJn6rfdJ3nS5zMkClU0I34tuQMXpVmX6yM=
+    ports:
+      - "8108:8108"
