@@ -1,4 +1,4 @@
-# Alfred para Chalice
+# Alfred para Django
 
 ![Alfred](https://upload.wikimedia.org/wikipedia/commons/8/80/Alfred_Thaddeus_Crane_Pennyworth.jpg)
 
@@ -53,3 +53,13 @@ class FooBillViewSet(
     filterset_class = FooBillFilter
     schema = AutoSchema(tags=["foo"])
 ```
+
+# Classes Mixin para uso no admin
+
+- NotAddMixin: Não possui permissão para adcionar informações no banco de dados.
+- NotDeleteMixin: Não possui permissão para deletar informações no banco de dados.
+- NotChangeMixin: Não possui permissão para alterar informações no banco de dados.
+- ChangeOnlyAdminMixin: Tem como heranças as classes NotDeleteMixin, NotAddMixin e suas respectivas funções.
+- ReadOnlyAdminMixin: Tem como heranças as classes ChangeOnlyAdminMixin, NotChangeMixin e suas respectivas funções.
+- CreateOnlyAdminMixin: Tem como heranças as classes NotDeleteMixin, NotChangeMixin e suas respectivas funções. 
+- FieldsReadOnlyAdminMixin: Retorna os campos somente leitura. 
