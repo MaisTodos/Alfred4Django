@@ -8,29 +8,25 @@ class NotDeleteMixin(object):
         return False
 
 
+class NotChangeMixin(object):
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
 class ChangeOnlyAdminMixin(NotDeleteMixin, NotAddMixin):
     pass
 
 
-class ReadOnlyAdminMixin(ChangeOnlyAdminMixin):
+class ReadOnlyAdminMixin(ChangeOnlyAdminMixin, NotChangeMixin):
     extra = 0
     max_num = 0
     can_delete = False
 
-    def has_change_permission(self, request, obj=None):
-        return False
 
-
-class CreateOnlyAdminMixin(object):
+class CreateOnlyAdminMixin(NotDeleteMixin, NotChangeMixin):
     extra = 0
     max_num = 0
     can_delete = False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
 
 
 class FieldsReadOnlyAdminMixin(object):
