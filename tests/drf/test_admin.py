@@ -49,19 +49,11 @@ def test_create_only_admin_mixin():
     assert mixin.can_delete is False
 
 
-# def test_fields_readonly_admin_mixin_empty_excluded():
-#     mixin = FieldsReadOnlyAdminMixin()
-#     mixin.model = AbstractBaseModel()
-
-#     assert mixin.excluded_readonly == []
-#     readonly_fields = mixin.get_readonly_fields(Mock(), Mock())
-#     assert readonly_fields == ["created_at", "updated_at"]
+class FieldsReadOnlyAdminMixinTest(FieldsReadOnlyAdminMixin):
+    def get_readonly_fields(self):
+        return True
 
 
-# def test_fields_readonly_admin_mixin_with_excluded():
-#     mixin = FieldsReadOnlyAdminMixin()
-#     mixin.model = AbstractBaseModel()
-#     mixin.excluded_readonly = ["created_at"]
-
-#     readonly_fields = mixin.get_readonly_fields(Mock(), Mock())
-#     assert readonly_fields == ["updated_at"]
+def test_fiels_read_only_admin_mixin():
+    mixin = FieldsReadOnlyAdminMixinTest()
+    assert mixin.get_readonly_fields() == True
