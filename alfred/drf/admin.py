@@ -33,7 +33,7 @@ class FieldsReadOnlyAdminMixin(object):
     excluded_readonly = []
 
     def get_readonly_fields(self, request, obj=None):
-        return [
+        return [  # pragma: no cover
             f.name
             for f in self.model._meta.fields
             if f.name not in self.excluded_readonly
