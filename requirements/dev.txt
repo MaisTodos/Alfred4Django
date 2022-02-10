@@ -4,9 +4,7 @@
 #
 #    pip-compile dev.in
 #
-backports.entry-points-selectable==1.1.1
-    # via virtualenv
-black==21.12b0
+black==22.1.0
     # via -r dev.in
 cfgv==3.3.1
     # via pre-commit
@@ -16,11 +14,15 @@ click==8.0.3
     #   pip-tools
 distlib==0.3.4
     # via virtualenv
-django==2.2.25
+django==2.2.27
+    # via
+    #   -r dev.in
+    #   django-phonenumber-field
+django-phonenumber-field==6.0.0
     # via -r dev.in
-filelock==3.4.0
+filelock==3.4.2
     # via virtualenv
-identify==2.4.0
+identify==2.4.9
     # via pre-commit
 mypy-extensions==0.4.3
     # via black
@@ -32,11 +34,11 @@ pep517==0.12.0
     # via pip-tools
 pip-tools==6.4.0
     # via -r dev.in
-platformdirs==2.4.0
+platformdirs==2.5.0
     # via
     #   black
     #   virtualenv
-pre-commit==2.16.0
+pre-commit==2.17.0
     # via -r dev.in
 pytz==2021.3
     # via django
@@ -48,13 +50,13 @@ sqlparse==0.4.2
     # via django
 toml==0.10.2
     # via pre-commit
-tomli==1.2.3
+tomli==2.0.1
     # via
     #   black
     #   pep517
 typing-extensions==4.0.1
     # via black
-virtualenv==20.10.0
+virtualenv==20.13.1
     # via pre-commit
 wheel==0.37.1
     # via pip-tools
