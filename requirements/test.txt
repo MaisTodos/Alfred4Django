@@ -16,7 +16,7 @@ black==22.1.0
     # via ipython
 blessed==1.19.1
     # via inquirer
-botocore==1.23.52
+botocore==1.23.53
     # via chalice
 certifi==2021.10.8
     # via requests
