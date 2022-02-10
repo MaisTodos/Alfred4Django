@@ -28,7 +28,9 @@ make test
 
 Esta lib possui alguns helpers para o DRF
 
-# MultiSerializerMixin
+# helpers
+
+#### MultiSerializerMixin
 
 Quando precisar alterar um serializer de um viewset do DRF, é só utilizar o MultiSerializerMixin, e setar na própria classe o dict com o serializer
 
@@ -56,10 +58,79 @@ class FooBillViewSet(
 
 # Classes Mixin para uso no admin
 
-- NotAddMixin: Não possui permissão para adcionar informações no banco de dados.
-- NotDeleteMixin: Não possui permissão para deletar informações no banco de dados.
-- NotChangeMixin: Não possui permissão para alterar informações no banco de dados.
-- ChangeOnlyAdminMixin: Tem como heranças as classes NotDeleteMixin, NotAddMixin e suas respectivas funções.
-- ReadOnlyAdminMixin: Tem como heranças as classes ChangeOnlyAdminMixin, NotChangeMixin e suas respectivas funções.
-- CreateOnlyAdminMixin: Tem como heranças as classes NotDeleteMixin, NotChangeMixin e suas respectivas funções. 
-- FieldsReadOnlyAdminMixin: Retorna os campos somente leitura. 
+#### NotAddMixin
+
+Não possui permissão para adcionar informações no banco de dados.
+
+~~~python
+class NotAddMixin(object):
+    def has_add_permission(self, request, obj=None):
+        return False
+~~~
+
+#### NotDeleteMixin
+
+Não possui permissão para deletar informações no banco de dados.
+
+~~~python
+class NotDeleteMixin(object):
+    def has_delete_permission(self, request, obj=None):
+        return False
+~~~
+
+#### NotChangeMixin
+
+Não possui permissão para alterar informações no banco de dados
+
+~~~python
+class NotChangeMixin(object):
+    def has_change_permission(self, request, obj=None):
+        return False
+~~~
+
+#### ChangeOnlyAdminMixin
+
+Tem como heranças as classes NotDeleteMixin, NotAddMixin e suas respectivas funções.
+
+~~~python
+class ChangeOnlyAdminMixin(NotDeleteMixin, NotAddMixin):
+    pass
+~~~
+
+#### ReadOnlyAdminMixin
+
+Tem como heranças as classes ChangeOnlyAdminMixin, NotChangeMixin e suas respectivas funções.
+
+~~~python
+class ReadOnlyAdminMixin(ChangeOnlyAdminMixin, NotChangeMixin):
+    extra = 0
+    max_num = 0
+    can_delete = False
+~~~
+
+#### CreateOnlyAdminMixin
+
+Tem como heranças as classes NotDeleteMixin, NotChangeMixin e suas respectivas funções. 
+
+~~~python
+class CreateOnlyAdminMixin(NotDeleteMixin, NotChangeMixin):
+    extra = 0
+    max_num = 0
+    can_delete = False
+~~~
+
+#### FieldsReadOnlyAdminMixin
+
+Retorna os campos somente leitura. 
+
+~~~python
+class FieldsReadOnlyAdminMixin(object):
+    excluded_readonly = []
+
+    def get_readonly_fields(self, request, obj=None):
+        return [
+            f.name
+            for f in self.model._meta.fields
+            if f.name not in self.excluded_readonly
+        ]
+~~~
