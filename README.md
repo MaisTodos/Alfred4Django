@@ -134,3 +134,64 @@ class FieldsReadOnlyAdminMixin(object):
             if f.name not in self.excluded_readonly
         ]
 ~~~
+
+# Forms
+
+#### BRPhoneNumberField
+
+O field `BRPhoneNumberField` utiliza mascara "(00) 00000-0000" para salvar os dados no banco de dados.
+
+~~~python
+class ContactForm(forms.Form):
+    phone = BRPhoneNumberField(
+        label="Telefone Celular*",
+        max_length=20,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "data-mask": "(00) 00000-0000",
+                "class": "form-control",
+                "placeholder": "(00) 00000-0000",
+            }
+        ),
+    )
+~~~
+
+# Mixins
+
+#### AnnotateGeolocationMixin
+
+Essa classe `Mixin` tem como objetivo retornar a distância esférica entre dois pontos.
+
+1. Defina um model com herança da classe `AnnotateGeolocationMixin`.
+
+~~~python
+class Store(AnnotateGeolocationMixin, models.Model):
+    ...
+~~~
+
+2. Defina a classe `ViewSet` com queryset referenciando o `model` com AnnotateGeolocationMixin.
+
+~~~python
+class StoreListViewSet(ListAPIView):
+    queryset = Store.objects.all
+    lat, lon, radius = 36.4766, -95.0192, 50
+
+    return queryset.distance(lat, lon).filter(distance_km__lte=radius)
+~~~
+
+# Models
+
+#### OnlyDigitsField
+
+Campo `OnlyDigitsField` tem como objetivo armazenar dados de telefone.
+
+~~~python
+class Store(models.Model):
+    phone = OnlyDigitsField(
+        blank=True,
+        null=True,
+        verbose_name=_("Telefone de contato principal"),
+        max_length=30,
+    )
+~~~
