@@ -56,4 +56,4 @@ class FieldsReadOnlyAdminMixinTest(FieldsReadOnlyAdminMixin):
 
 def test_fiels_read_only_admin_mixin():
     mixin = FieldsReadOnlyAdminMixinTest()
-    assert mixin.get_readonly_fields() == True
+    assert mixin.get_readonly_fields() is True
