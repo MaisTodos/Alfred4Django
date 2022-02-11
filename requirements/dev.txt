@@ -18,7 +18,7 @@ django==2.2.27
     # via
     #   -r dev.in
     #   django-phonenumber-field
-django-phonenumber-field==6.0.0
+django-phonenumber-field[phonenumbers]==6.0.0
     # via -r dev.in
 filelock==3.4.2
     # via virtualenv
@@ -32,6 +32,8 @@ pathspec==0.9.0
     # via black
 pep517==0.12.0
     # via pip-tools
+phonenumbers==8.12.43
+    # via django-phonenumber-field
 pip-tools==6.4.0
     # via -r dev.in
 platformdirs==2.5.0
