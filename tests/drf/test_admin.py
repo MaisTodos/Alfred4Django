@@ -1,12 +1,19 @@
+from unittest.mock import Mock
+
 from alfred.drf.admin import (
-    NotAddMixin,
-    NotDeleteMixin,
-    NotChangeMixin,
     ChangeOnlyAdminMixin,
-    ReadOnlyAdminMixin,
     CreateOnlyAdminMixin,
     FieldsReadOnlyAdminMixin,
+    NotAddMixin,
+    NotChangeMixin,
+    NotDeleteMixin,
+    ReadOnlyAdminMixin,
 )
+from boot_django import boot_django
+
+boot_django()
+
+from generic.models import GenericModel  # noqa
 
 
 def test_not_add_mixin():
@@ -57,3 +64,25 @@ class FieldsReadOnlyAdminMixinTest(FieldsReadOnlyAdminMixin):
 def test_fiels_read_only_admin_mixin():
     mixin = FieldsReadOnlyAdminMixinTest()
     assert mixin.get_readonly_fields() is True
+
+
+def test_fields_readonly_admin_mixin_empty_excluded():
+    mixin = FieldsReadOnlyAdminMixin()
+    mixin.model = GenericModel()
+
+    assert mixin.excluded_readonly == []
+
+    readonly_fields = mixin.get_readonly_fields(Mock(), Mock())
+
+    assert readonly_fields == ["id", "latitude", "longitude"]
+
+
+def test_fields_readonly_admin_mixin_with_excluded():
+    mixin = FieldsReadOnlyAdminMixin()
+    mixin.model = GenericModel()
+
+    mixin.excluded_readonly = ["latitude"]
+
+    readonly_fields = mixin.get_readonly_fields(Mock(), Mock())
+
+    assert readonly_fields == ["id", "longitude"]
