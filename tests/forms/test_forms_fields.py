@@ -1,4 +1,4 @@
-from alfred.forms.forms_fields import BRPhoneNumberField
+from generic.forms import BRPhoneNumberField
 from phonenumber_field.formfields import PhoneNumberField
 from unittest.mock import patch
 
@@ -8,16 +8,37 @@ def test_br_phone_number_field():
 
 
 def test_br_phone_number_format_number():
-    function = BRPhoneNumberField()
     value = "(019) 99106 1478"
     expected_value = "+55019991061478"
+
+    function = BRPhoneNumberField()
     new_value = function._format_number(value)
 
     assert new_value == expected_value
 
 
+def test_br_phone_number_to_python():
+    value = "(019) 99106 1478"
+    expected_value = "+5519991061478"
+
+    function = BRPhoneNumberField()
+    new_value = function.to_python(value)
+
+    assert new_value == expected_value
+
+
+def test_br_phone_number_clean():
+    value = "(019) 99106 1478"
+    expected_value = "19991061478"
+
+    function = BRPhoneNumberField()
+    new_value = function.clean(value)
+
+    assert new_value == expected_value
+
+
 @patch("alfred.forms.forms_fields.BRPhoneNumberField.to_python")
-def test_br_phone_number_to_python(mock_function):
+def test_br_phone_number_to_python_mock(mock_function):
     value = "(019) 99106 1478"
 
     function = BRPhoneNumberField()
@@ -28,7 +49,7 @@ def test_br_phone_number_to_python(mock_function):
 
 
 @patch("alfred.forms.forms_fields.BRPhoneNumberField.clean")
-def test_br_phone_number_clean(mock_function):
+def test_br_phone_number_clean_mock(mock_function):
     value = "+55019991061478"
 
     function = BRPhoneNumberField()
