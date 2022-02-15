@@ -14,10 +14,10 @@ class BRPhoneNumberField(PhoneNumberField):
         return f"+55{value}"
 
     def to_python(self, value):
-        value = self._format_number(value)  # pragma: no cover
-        phone_number = super().to_python(value)  # pragma: no cover
-        return str(phone_number)  # pragma: no cover
+        value = self._format_number(value)
+        phone_number = super().to_python(value)
+        return str(phone_number)
 
     def clean(self, value):
-        value = super().clean(value)  # pragma: no cover
-        return value.replace("+55", "")  # pragma: no cover
+        value = super().clean(value)
+        return value.replace("+55", "")
