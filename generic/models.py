@@ -1,5 +1,9 @@
-from decimal import Decimal
 from django.db import models
+from alfred.mixins.geolocation import AnnotateGeolocationMixin
+
+
+class GeolocationManager(AnnotateGeolocationMixin, models.Manager):
+    pass
 
 
 class GenericModel(models.Model):
@@ -17,5 +21,5 @@ class GenericModel(models.Model):
         max_length=50,
         db_index=True,
     )
-
+    geolocation = GeolocationManager()
 
