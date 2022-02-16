@@ -1,6 +1,6 @@
 name: Alfred4Django
 
-on: push
+on: pull_request
 
 jobs:
   test:
