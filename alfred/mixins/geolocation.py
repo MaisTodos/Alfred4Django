@@ -19,7 +19,7 @@ class AnnotateGeolocationMixin:
         # nativa do MySQL. A distância abaixo aproxima-se razoavelmente da distância
         # exata entre os dois pontos em linha reta.
 
-        return (  # pragma: no cover
+        return (
             self.annotate(
                 distance_km=RawSQL(
                     "SQRT( "
