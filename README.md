@@ -28,7 +28,7 @@ make test
 
 Esta lib possui alguns helpers para o DRF
 
-# helpers
+### helpers
 
 #### MultiSerializerMixin
 
@@ -56,74 +56,74 @@ class FooBillViewSet(
     schema = AutoSchema(tags=["foo"])
 ```
 
-# Classes Mixin para uso no admin
+### Classes Mixin para uso no admin
 
 #### NotAddMixin
 
 Não possui permissão para adcionar informações no banco de dados.
 
-~~~python
+```python
 class NotAddMixin(object):
     def has_add_permission(self, request, obj=None):
         return False
-~~~
+```
 
 #### NotDeleteMixin
 
 Não possui permissão para deletar informações no banco de dados.
 
-~~~python
+```python
 class NotDeleteMixin(object):
     def has_delete_permission(self, request, obj=None):
         return False
-~~~
+```
 
 #### NotChangeMixin
 
 Não possui permissão para alterar informações no banco de dados
 
-~~~python
+```python
 class NotChangeMixin(object):
     def has_change_permission(self, request, obj=None):
         return False
-~~~
+```
 
 #### ChangeOnlyAdminMixin
 
 Tem como heranças as classes NotDeleteMixin, NotAddMixin e suas respectivas funções.
 
-~~~python
+```python
 class ChangeOnlyAdminMixin(NotDeleteMixin, NotAddMixin):
     pass
-~~~
+```
 
 #### ReadOnlyAdminMixin
 
 Tem como heranças as classes ChangeOnlyAdminMixin, NotChangeMixin e suas respectivas funções.
 
-~~~python
+```python
 class ReadOnlyAdminMixin(ChangeOnlyAdminMixin, NotChangeMixin):
     extra = 0
     max_num = 0
     can_delete = False
-~~~
+```
 
 #### CreateOnlyAdminMixin
 
-Tem como heranças as classes NotDeleteMixin, NotChangeMixin e suas respectivas funções. 
+Tem como heranças as classes NotDeleteMixin, NotChangeMixin e suas respectivas funções.
 
-~~~python
+```python
 class CreateOnlyAdminMixin(NotDeleteMixin, NotChangeMixin):
     extra = 0
     max_num = 0
     can_delete = False
-~~~
+```
 
 #### FieldsReadOnlyAdminMixin
 
-Retorna os campos somente leitura. 
+Retorna os campos somente leitura.
 
-~~~python
+```python
 class FieldsReadOnlyAdminMixin(object):
     excluded_readonly = []
 
@@ -133,15 +133,15 @@ class FieldsReadOnlyAdminMixin(object):
             for f in self.model._meta.fields
             if f.name not in self.excluded_readonly
         ]
-~~~
+```
 
-# Forms
+### Forms
 
 #### BRPhoneNumberField
 
 O field `BRPhoneNumberField` utiliza mascara "(00) 00000-0000" para salvar os dados no banco de dados. Para utilizar esse campo é necessário o pacote `phonenumbers`.
 
-~~~python
+```python
 class ContactForm(forms.Form):
     phone = BRPhoneNumberField(
         label="Telefone Celular*",
@@ -155,38 +155,38 @@ class ContactForm(forms.Form):
             }
         ),
     )
-~~~
+```
 
-# Mixins
+### Mixins
 
 #### AnnotateGeolocationMixin
 
 Essa classe `Mixin` tem como objetivo retornar a distância esférica entre dois pontos.
 
-1. Defina um model com herança da classe `AnnotateGeolocationMixin`.
+* Defina um model com herança da classe `AnnotateGeolocationMixin`.
 
-~~~python
+```python
 class Store(AnnotateGeolocationMixin, models.Model):
     ...
-~~~
+```
 
-2. Defina a classe `ViewSet` com queryset referenciando o `model` com AnnotateGeolocationMixin.
+* Defina a classe `ViewSet` com queryset referenciando o `model` com AnnotateGeolocationMixin.
 
-~~~python
+```python
 class StoreListViewSet(ListAPIView):
     queryset = Store.objects.all
     lat, lon, radius = 36.4766, -95.0192, 50
 
     return queryset.distance(lat, lon).filter(distance_km__lte=radius)
-~~~
+```
 
-# Models
+### Models
 
 #### OnlyDigitsField
 
 Campo `OnlyDigitsField` tem como objetivo armazenar dados de telefone.
 
-~~~python
+```python
 class Store(models.Model):
     phone = OnlyDigitsField(
         blank=True,
@@ -194,4 +194,4 @@ class Store(models.Model):
         verbose_name=_("Telefone de contato principal"),
         max_length=30,
     )
-~~~
+```

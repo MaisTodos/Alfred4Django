@@ -1,6 +1,8 @@
-from generic.forms import BRPhoneNumberField
-from phonenumber_field.formfields import PhoneNumberField
 from unittest.mock import patch
+
+from phonenumber_field.formfields import PhoneNumberField
+
+from generic.forms import BRPhoneNumberField
 
 
 def test_br_phone_number_field():

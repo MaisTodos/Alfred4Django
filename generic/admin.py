@@ -1,6 +1,5 @@
 from django.contrib import admin
-
-from receipts.models import Receipt, Item
+from receipts.models import Item, Receipt
 
 
 @admin.register(Receipt)

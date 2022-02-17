@@ -5,7 +5,6 @@ import pytest
 from alfred.mixins.geolocation import AnnotateGeolocationMixin
 from generic.models import GenericModel
 
-
 pytestmark = pytest.mark.django_db
 
 

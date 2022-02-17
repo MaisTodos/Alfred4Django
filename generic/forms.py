@@ -4,7 +4,6 @@ from django import forms
 
 from alfred.forms.forms_fields import BRPhoneNumberField
 
-
 logger = logging.getLogger(__name__)
 
 
