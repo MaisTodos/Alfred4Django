@@ -139,7 +139,7 @@ class FieldsReadOnlyAdminMixin(object):
 
 #### BRPhoneNumberField
 
-O field `BRPhoneNumberField` utiliza mascara "(00) 00000-0000" para salvar os dados no banco de dados. Esse campo utiliza como herança a classe `PhoneNumberField` do pacote `phonenumber_field`. 
+O field `BRPhoneNumberField` utiliza mascara "(00) 00000-0000" para salvar os dados no banco de dados. Para utilizar esse campo é necessário o pacote `phonenumbers`.
 
 ~~~python
 class ContactForm(forms.Form):
