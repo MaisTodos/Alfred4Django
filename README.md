@@ -182,6 +182,8 @@ class StoreListViewSet(ListAPIView):
 
 ### Models
 
+- A ideia é fazer um alias no model_utils, deixando mais amigável para utilização, etc
+
 ```python
 from model_utils.fields import StatusField
 
