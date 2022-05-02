@@ -163,14 +163,14 @@ class ContactForm(forms.Form):
 
 Essa classe `Mixin` tem como objetivo retornar a distância esférica entre dois pontos.
 
-* Defina um model com herança da classe `AnnotateGeolocationMixin`.
+- Defina um model com herança da classe `AnnotateGeolocationMixin`.
 
 ```python
 class Store(AnnotateGeolocationMixin, models.Model):
     ...
 ```
 
-* Defina a classe `ViewSet` com queryset referenciando o `model` com AnnotateGeolocationMixin.
+- Defina a classe `ViewSet` com queryset referenciando o `model` com AnnotateGeolocationMixin.
 
 ```python
 class StoreListViewSet(ListAPIView):
@@ -181,6 +181,13 @@ class StoreListViewSet(ListAPIView):
 ```
 
 ### Models
+
+```python
+from model_utils.fields import StatusField
+
+class ChoiceField(StatusField):
+    pass
+```
 
 #### OnlyDigitsField
 
