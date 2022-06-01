@@ -1,4 +1,4 @@
-flake8==3.8.3
+flake8==4.0.1
 freezegun
 ipdb
 ipython
@@ -8,5 +8,5 @@ pytest-django
 pytest-factoryboy==2.1.0
 pytest-flake8
 pytest-vcr
-pytest==5.4.3
-safety==1.9.0
+pytest==7.1.2
+safety==1.10.3
