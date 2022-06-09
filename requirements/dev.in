@@ -1,7 +1,8 @@
-black
+black==22.1.0
 django-model-utils==4.2.0
 django-phonenumber-field[phonenumbers]
 djangorestframework==3.13.1
 Django>=2.0,<3.0
-pip-tools==6.4.0
+pip-tools==6.6.2
 pre-commit
+validate-docbr==1.10.0
