@@ -182,14 +182,31 @@ class StoreListViewSet(ListAPIView):
 
 ### Models
 
-- A ideia é fazer um alias no model_utils, deixando mais amigável para utilização, etc
+#### ChoiceField
+
+- O field `ChoiceField` é uma classe para ser usada na definição de choices dentro de um model Django. Exemplo de utilização:
 
 ```python
 from model_utils.fields import StatusField
+from model_utils.choices import Choices
 
-class ChoiceField(StatusField):
-    pass
+class Order(AbstractBaseModel):
+    STATUS_CHOICES = Choices(
+        ("created", "Criado"),
+        ("received", "Recebido"),
+        ("confirmed", "Confirmado"),
+        ("canceled", "Cancelado"),
+    )
+    status = ChoiceField(
+        verbose_name=_("Status"),
+        default="created",
+        max_length=40,
+        choices_name="STATUS_CHOICES",
+    )
 ```
+
+- STATUS_CHOICES deve estar definindo dentro da classe. 
+- o campo `choices_name` deve ser definido igual ao Choices em formato string.
 
 #### OnlyDigitsField
 
@@ -203,4 +220,20 @@ class Store(models.Model):
         verbose_name=_("Telefone de contato principal"),
         max_length=30,
     )
+```
+
+#### CpfField e CnpjField
+
+Os campos CpfField e CnpjField fazem a validação dos números dos documentos brasileiros. Herdam a classe OnlyDigitsField e dependem da lib validate_docbr.
+
+```python
+class CpfField(OnlyDigitsField):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.validators.append(cpf_validator)
+
+class CnpjField(OnlyDigitsField):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.validators.append(cnpj_validator)
 ```
