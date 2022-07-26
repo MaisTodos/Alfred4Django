@@ -8,5 +8,6 @@ def cnpj_validator(value: str):
 
 
 def cpf_validator(value: str):
+    value = value.zfill(11)
     if not CPF().validate(value):
         raise ValidationError(message="CPF inválido.")
