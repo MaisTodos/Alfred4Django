@@ -32,3 +32,10 @@ def test_cnpj_validator_error():
     with pytest.raises(ValidationError):
         validated_doc = cnpj_validator(value=document)
         assert validated_doc == "CNPJ inválido."
+
+
+def test_cpf_validator_start_with_0():
+    document = "3545054918"
+    validated_doc = cpf_validator(value=document)
+
+    assert validated_doc is None
